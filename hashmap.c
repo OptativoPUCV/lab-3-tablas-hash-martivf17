@@ -7,7 +7,7 @@
 
 
 typedef struct HashMap HashMap;
-int enlarge_called=0;
+int enlarge_called = 0;
 
 struct HashMap {
     Pair ** buckets;
@@ -38,10 +38,25 @@ int is_equal(void* key1, void* key2){
     return 0;
 }
 
-
 void insertMap(HashMap * map, char * key, void * value) {
+    // Se llama a funcion hash para saber el indice de la casilla en donde se deberia insertar
+    unsigned long indice = hash(key, map->size);
 
+    // SONDEO LINEAL
+    // Mientras que no se encuentre con un valor NULL y 
+    // que tampoco la clave sea igual a la clave que se encuentra en la casilla
+    // Osea, mientras no se encuentre con una casilla vácia ni se encuentre con la misma clave
+    // El indice avanzara uno más 
+    while(map->buckets[indice] != NULL && strcmp(map->buckets[indice]->key, key) != 0){
+        indice = (indice + 1) % map->size;
+    }
 
+    if (map->buckets[indice] == NULL) {
+        map->buckets[indice] = malloc(sizeof(Pair));
+        map->buckets[indice]->key = strdup(key); // copiamos la clave
+        map->size++;
+    }
+    map->buckets[indice]->value = value;
 }
 
 void enlarge(HashMap * map) {
