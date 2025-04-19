@@ -116,10 +116,12 @@ HashMap * createMap(long capacity) {
 }
 
 void eraseMap(HashMap * map,  char * key) {    
-    Pair * pair_eliminar = searchMap(map, key);
+    // Buscamos el Pair con la funcion searchMap
+    Pair * eliminar = searchMap(map, key);
 
-    if(pair_eliminar != NULL){
-        pair_eliminar->key = NULL;
+    // Solo si se encontro el Pair, se INVALIDA la clave y se actualiza size -1.
+    if(eliminar != NULL){
+        eliminar->key = NULL;
         map->size--;
     }
 }
@@ -144,8 +146,19 @@ Pair * searchMap(HashMap * map,  char * key) {
 }
 
 Pair * firstMap(HashMap * map) {
+    long posicion = 0;
 
+    while(map->buckets[posicion] != NULL){
+
+        if(map->buckets[posicion] != NULL && map->buckets[posicion]->key != NULL)
+        {
+            map->current = posicion;
+            return map->buckets[posicion];    
+        }
+        posicion = (posicion + 1) % map->capacity;
+    }
     return NULL;
+    
 }
 
 Pair * nextMap(HashMap * map) {
