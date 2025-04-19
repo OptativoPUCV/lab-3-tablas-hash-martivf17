@@ -146,8 +146,6 @@ Pair * searchMap(HashMap * map,  char * key) {
 }
 
 Pair * firstMap(HashMap * map) {
-    long posicion = 0;
-
     for(long posicion = 0; posicion < (map->capacity -1); posicion++){
 
         if(map->buckets[posicion] != NULL && map->buckets[posicion]->key != NULL)

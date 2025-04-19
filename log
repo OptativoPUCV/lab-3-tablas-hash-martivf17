@@ -222,3 +222,9 @@ hashmap.c:149:10: error: unused variable 'posicion' [-Werror=unused-variable]
           ^~~~~~~~
 cc1.exe: all warnings being treated as errors
 c4b8380
+Fri, Apr 18, 2025 10:50:03 PM: 
+ hashmap.c | 2 --
+ 1 file changed, 2 deletions(-)
+ tests:  14|1
+total_score: 60/70
+03a5dc4
