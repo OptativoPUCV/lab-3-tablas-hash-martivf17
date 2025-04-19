@@ -123,14 +123,14 @@ void eraseMap(HashMap * map,  char * key) {
 Pair * searchMap(HashMap * map,  char * key) {   
     unsigned long posicion = hash(key, map->capacity);
 
-    if(map->buckets[posicion]-> key == NULL) return NULL;
+    while(map->buckets[posicion] != NULL){
+        if (map->buckets[posicion]->key != NULL && strcmp(map->buckets[posicion]->key, key) != 0){
+            return map->buckets[posicion];
+        }
 
-    if(strcmp(map->buckets[posicion]->key, key) == 0){
-        return map->buckets;
-    }
-    else{
         posicion = (posicion + 1) % map->capacity;
     }
+    return NULL;
 }
 
 Pair * firstMap(HashMap * map) {
