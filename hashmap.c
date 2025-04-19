@@ -116,21 +116,29 @@ HashMap * createMap(long capacity) {
 }
 
 void eraseMap(HashMap * map,  char * key) {    
+    Pair * pair_eliminar = searchMap(map, key);
 
-    return;
+    if(pair_eliminar != NULL){
+        pair_eliminar->key = NULL;
+    }
 }
 
 Pair * searchMap(HashMap * map,  char * key) {   
+    // Con funcion hash encontramos la posicion en donde debe estar el elemento
     unsigned long posicion = hash(key, map->capacity);
 
+    // mientras el Pair que se accede no sea NULL,     
     while(map->buckets[posicion] != NULL){
+        // Si la clave es distinta de NULL y a su vez la clave que esta en la posicion, es igual a clave
         if (map->buckets[posicion]->key != NULL && strcmp(map->buckets[posicion]->key, key) == 0){
+            // Actualizamos al currente debido a que sera el ultimo dato al que accedemos y retornamos
             map->current = posicion;
             return map->buckets[posicion];
         }
+        // Si no cumple la condicion, avanza de posicion
         posicion = (posicion + 1) % map->capacity;
-        
     }
+    // Si se sale del bucle retornara NULL, debido a que no lo encontro
     return NULL;
 }
 
