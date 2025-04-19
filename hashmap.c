@@ -162,7 +162,15 @@ Pair * firstMap(HashMap * map) {
 }
 
 Pair * nextMap(HashMap * map) {
+    long posicion = map->current;
+    posicion = (posicion + 1) % map->capacity;
 
+    if(map->buckets[posicion] != NULL)
+    {
+        map->current = posicion;
+        return map->buckets[posicion];
+    }
+    
     return NULL;
 }
 
