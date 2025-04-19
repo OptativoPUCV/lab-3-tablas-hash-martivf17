@@ -63,9 +63,11 @@ void insertMap(HashMap * map, char * key, void * value) {
 
 void enlarge(HashMap * map) {
     // Se duplica la capacidad del mapa
-    long new_capacity = map->capacity * 2;
+    long new_capacity = (map->capacity) * 2;
+
     // Se reserva memoria para el nuevo mapa
     HashMap * new_map = createMap(new_capacity);
+    // Comprobamos la reserva de memoria
     if (new_map == NULL) {
         return;
     }
@@ -74,6 +76,8 @@ void enlarge(HashMap * map) {
         if (map->buckets[i] != NULL) {
             insertMap(new_map, map->buckets[i]->key, map->buckets[i]->value);
         }
+        free(map->buckets[i]->key); // Liberamos la memoria de la clave
+        free(map->buckets[i]); // Liberamos la memoria del par
     }
     // Se libera la memoria del mapa original
     free(map->buckets);
