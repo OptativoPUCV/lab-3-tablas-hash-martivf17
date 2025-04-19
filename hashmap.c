@@ -81,7 +81,7 @@ void enlarge(HashMap * map) {
     // el tamaño lo dejamos en cero
     map->size = 0;
 
-    // insertamos los antiguos elementos en el mapa
+    // insertamos los antiguos pair en el mapa
     for (long i = 0; i < old_capacity; i++) {
         if (old_buckets[i] != NULL && old_buckets[i]->key != NULL) {
             insertMap(map, old_buckets[i]->key, old_buckets[i]->value);
@@ -107,8 +107,8 @@ HashMap * createMap(long capacity) {
     for(long i = 0; i < capacity; i++){
         mapa->buckets[i] = NULL;
     }
-    // Dejamos declarada la capacidad, la cantidad de datos y el indice del ultimo dato accedido
-    // es -1 porque no hay datos en el mapa
+    // Dejamos declarada la capacidad, la cantidad de pair y el indice del ultimo pair accedido
+    // es -1 porque no hay pair en el mapa
     mapa->capacity = capacity;
     mapa->size = 0;
     mapa->current = -1;
@@ -127,14 +127,14 @@ void eraseMap(HashMap * map,  char * key) {
 }
 
 Pair * searchMap(HashMap * map,  char * key) {   
-    // Con funcion hash encontramos la posicion en donde debe estar el elemento
+    // Con funcion hash encontramos la posicion en donde debe estar el pair con esa clave
     unsigned long posicion = hash(key, map->capacity);
 
     // mientras el Pair que se accede no sea NULL,     
     while(map->buckets[posicion] != NULL){
         // Si la clave es distinta de NULL y a su vez la clave que esta en la posicion, es igual a clave
         if (map->buckets[posicion]->key != NULL && strcmp(map->buckets[posicion]->key, key) == 0){
-            // Actualizamos al currente debido a que sera el ultimo dato al que accedemos y retornamos
+            // Actualizamos al currente debido a que sera el ultimo pair al que accedemos y retornamos
             map->current = posicion;
             return map->buckets[posicion];
         }
@@ -146,26 +146,32 @@ Pair * searchMap(HashMap * map,  char * key) {
 }
 
 Pair * firstMap(HashMap * map) {
+    // partimos desde posicion 0, y mientras posicion sea menor a la capacidad del mapa, preguntara:
     for(long posicion = 0; posicion < (map->capacity -1); posicion++){
-
+        // Solo si el pair es distinto de NULL y su clave TAMBIEN...
         if(map->buckets[posicion] != NULL && map->buckets[posicion]->key != NULL)
         {
+            // ACTUALIZAMOS current debido a que accederemos a este pair y retornamos el pair
             map->current = posicion;
             return map->buckets[posicion];    
         }
     }
+    // Si nunca cumple la condicion retornara NULL, osea si nunca encuentra un primer pair valido
     return NULL;
 }
 
 Pair * nextMap(HashMap * map) {
+    // Para encontar el siguiente utilizaremos el current +1, de ahi partimos buscando, hasta capacidad -1
     for(long posicion = (map->current +1); posicion < (map->capacity -1); posicion++){
-
+        // Solo si nos encontramos un pair que no es NULL y que su clave tampoco sea NULL
         if(map->buckets[posicion] != NULL && map->buckets[posicion]->key != NULL)
         {
+            // Actualizamos el current y retornamos este pair
             map->current = posicion;
             return map->buckets[posicion];
         }
     }
+    // Si nunca cumple la condicion retornara NULL, osea que no hay un siguiente pair valido.
     return NULL;
 }
 
