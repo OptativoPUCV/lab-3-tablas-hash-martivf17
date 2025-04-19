@@ -51,33 +51,60 @@ void insertMap(HashMap * map, char * key, void * value) {
         indice = (indice + 1) % map->size;
     }
 
+    // Si no ocurre colison, osea, la casilla esta vacia, se inserta
     if (map->buckets[indice] == NULL) {
         map->buckets[indice] = malloc(sizeof(Pair));
         map->buckets[indice]->key = strdup(key); // copiamos la clave
         map->size++;
     }
+    // Actualizamos el valor
     map->buckets[indice]->value = value;
 }
 
 void enlarge(HashMap * map) {
     enlarge_called = 1; //no borrar (testing purposes)
+    
+    HashMap * old_map = map; // guardamos el antiguo mapa
+    long old_capacity = map->capacity; // guardamos la capacidad del antiguo mapa
+    
+    map->capacity = map->capacity * 2; // duplicamos la capacidad del nuevo mapa
+    map->buckets = (Pair**)malloc(sizeof(Pair*)*map->capacity); // reservamos memoria para los nuevos buckets
+    if(map->buckets == NULL) {
+        return;
+    }
+    map->size = 0; // reiniciamos el tamaño del nuevo mapa
 
-
+    for(long i = 0; i < old_capacity; i++){
+        if(old_map->buckets[i] != NULL){
+            insertMap(map, old_map->buckets[i]->key, old_map->buckets[i]->value);
+        }
+        free(old_map->buckets[i]);
+    }
+    free(old_map);
 }
 
 
 HashMap * createMap(long capacity) {
+    // Reservamos memoria para el mapa
     HashMap*mapa = (HashMap*)malloc(sizeof(HashMap));
+    if(mapa == NULL) {
+        return NULL;
+    }
+    // Reservamos memoria para los buckets
     mapa->buckets = (Pair**)malloc(sizeof(Pair*)*capacity);
+    if(mapa->buckets == NULL) {
+        return NULL;
+    }
+    // Inicializamos todos los buckets en NULL
     for(long i = 0; i < capacity; i++){
         mapa->buckets[i] = NULL;
     }
+    // Dejamos declarada la capacidad, la cantidad de datos y el indice del ultimo dato accedido
+    // es -1 porque no hay datos en el mapa
     mapa->capacity = capacity;
     mapa->size = 0;
     mapa->current = -1;
-
     return mapa;
-    
 }
 
 void eraseMap(HashMap * map,  char * key) {    
