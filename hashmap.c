@@ -76,6 +76,8 @@ void enlarge(HashMap * map) {
         if (map->buckets[i] != NULL) {
             insertMap(new_map, map->buckets[i]->key, map->buckets[i]->value);
         }
+        free(map->buckets[i]->key); // Liberamos la memoria de la clave
+        free(map->buckets[i]); // Liberamos la memoria del par
     }
     // Se libera la memoria del mapa original
     free(map->buckets);
@@ -85,7 +87,7 @@ void enlarge(HashMap * map) {
     free(new_map);
     // Se actualiza el tamaño del mapa original
     map->size = new_map->size;
-
+    // Se actualiza el indice del mapa
     map->current = -1;
 }
 
