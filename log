@@ -43,3 +43,15 @@ hashmap.c:68:25: error: initialization makes integer from pointer without a cast
                          ^~~
 cc1.exe: all warnings being treated as errors
 0387682
+Fri, Apr 18, 2025  9:03:20 PM: 
+Compilation failed
+In file included from test.c:4:0:
+hashmap.c: In function 'enlarge':
+hashmap.c:67:27: error: initialization from incompatible pointer type [-Werror=incompatible-pointer-types]
+     Pair ** old_buckets = map; // guardamos el antiguo mapa
+                           ^~~
+hashmap.c:68:25: error: initialization makes integer from pointer without a cast [-Werror=int-conversion]
+     long old_capacity = map->buckets; // guardamos la capacidad del antiguo mapa
+                         ^~~
+cc1.exe: all warnings being treated as errors
+8d5a341
