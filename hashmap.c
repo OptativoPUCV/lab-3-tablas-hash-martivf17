@@ -74,17 +74,20 @@ void enlarge(HashMap * map) {
     map->buckets = (Pair **)malloc(sizeof(Pair *) * map->capacity);
     if (map->buckets == NULL) return;
 
+    // iniciamos los buckets en NULL
     for (long i = 0; i < map->capacity; i++) {
         map->buckets[i] = NULL;
     }
+    // el tamaño lo dejamos en cero
     map->size = 0;
 
+    // insertamos los antiguos elementos en el mapa
     for (long i = 0; i < old_capacity; i++) {
         if (old_buckets[i] != NULL && old_buckets[i]->key != NULL) {
             insertMap(map, old_buckets[i]->key, old_buckets[i]->value);
         }
     }
-
+    // liberamos la memoria de los antiguos buckets
     free(old_buckets);
 }
 
