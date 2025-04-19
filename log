@@ -29,3 +29,17 @@ Fri, Apr 18, 2025  8:47:40 PM:
  1 file changed, 2 insertions(+)
  tests:  0|0
 f53c7e1
+Fri, Apr 18, 2025  8:56:37 PM: 
+ hashmap.c | 22 +++++++++++++---------
+ 1 file changed, 13 insertions(+), 9 deletions(-)
+Compilation failed
+In file included from test.c:4:0:
+hashmap.c: In function 'enlarge':
+hashmap.c:67:27: error: initialization from incompatible pointer type [-Werror=incompatible-pointer-types]
+     Pair ** old_buckets = map; // guardamos el antiguo mapa
+                           ^~~
+hashmap.c:68:25: error: initialization makes integer from pointer without a cast [-Werror=int-conversion]
+     long old_capacity = map->buckets; // guardamos la capacidad del antiguo mapa
+                         ^~~
+cc1.exe: all warnings being treated as errors
+0387682
