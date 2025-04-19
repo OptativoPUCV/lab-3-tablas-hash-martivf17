@@ -40,7 +40,7 @@ int is_equal(void* key1, void* key2){
 
 void insertMap(HashMap * map, char * key, void * value) {
     // Se llama a funcion hash para saber el indice de la casilla en donde se deberia insertar
-    unsigned long indice = hash(key, map->size);
+    unsigned long indice = hash(key, map->capacity);
 
     // SONDEO LINEAL
     // Mientras que no se encuentre con un valor NULL y 
@@ -48,7 +48,7 @@ void insertMap(HashMap * map, char * key, void * value) {
     // Osea, mientras no se encuentre con una casilla vácia ni se encuentre con la misma clave
     // El indice avanzara uno más 
     while(map->buckets[indice] != NULL && strcmp(map->buckets[indice]->key, key) != 0){
-        indice = (indice + 1) % map->size;
+        indice = (indice + 1) % map->capacity;
     }
 
     // Si no ocurre colison, osea, la casilla esta vacia, se inserta
@@ -113,7 +113,7 @@ HashMap * createMap(long capacity) {
 
 void eraseMap(HashMap * map,  char * key) {    
 
-
+    return;
 }
 
 Pair * searchMap(HashMap * map,  char * key) {   
