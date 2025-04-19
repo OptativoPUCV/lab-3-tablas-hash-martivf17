@@ -64,8 +64,8 @@ void insertMap(HashMap * map, char * key, void * value) {
 void enlarge(HashMap * map) {
     enlarge_called = 1; //no borrar (testing purposes)
     
-    Pair ** old_buckets = map; // guardamos el antiguo mapa
-    long old_capacity = map->buckets; // guardamos la capacidad del antiguo mapa
+    Pair ** old_buckets = map->buckets; // guardamos el antiguo mapa
+    long old_capacity = map->capacity; // guardamos la capacidad del antiguo mapa
     
     map->capacity *= 2; // duplicamos la capacidad del nuevo mapa
     map->buckets = (Pair**)malloc(sizeof(Pair*)*map->capacity); // reservamos memoria para los nuevos buckets
