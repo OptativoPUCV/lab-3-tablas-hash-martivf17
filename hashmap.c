@@ -120,6 +120,7 @@ void eraseMap(HashMap * map,  char * key) {
 
     if(pair_eliminar != NULL){
         pair_eliminar->key = NULL;
+        map->size--;
     }
 }
 
