@@ -148,14 +148,13 @@ Pair * searchMap(HashMap * map,  char * key) {
 Pair * firstMap(HashMap * map) {
     long posicion = 0;
 
-    while(map->buckets[posicion] != NULL){
+    for(long posicion = 0; posicion < (map->capacity -1); posicion++){
 
         if(map->buckets[posicion] != NULL && map->buckets[posicion]->key != NULL)
         {
             map->current = posicion;
             return map->buckets[posicion];    
         }
-        posicion = (posicion + 1) % map->capacity;
     }
     return NULL;
     

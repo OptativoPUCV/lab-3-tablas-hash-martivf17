@@ -211,3 +211,14 @@ Fri, Apr 18, 2025 10:45:31 PM:
  tests:  13|1
 total_score: 60/70
 3417f50
+Fri, Apr 18, 2025 10:49:35 PM: 
+ hashmap.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+Compilation failed
+In file included from test.c:4:0:
+hashmap.c: In function 'firstMap':
+hashmap.c:149:10: error: unused variable 'posicion' [-Werror=unused-variable]
+     long posicion = 0;
+          ^~~~~~~~
+cc1.exe: all warnings being treated as errors
+c4b8380
